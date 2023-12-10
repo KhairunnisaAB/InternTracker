@@ -1,0 +1,155 @@
+﻿@model Projek_SIM.Models.Mahasiswa
+
+@{
+    ViewBag.Title = "Detail Mahasiswa";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+     @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <label><b>Detail Mahasiswa</b></label>
+        </div>
+        <div class="card-block">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label style='font-weight: bold;' for="addID">ID Pembimbing<b style="color: red">*</b></label>
+                        @Html.EditorFor(model => model.mhs_id, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.mhs_id, "", new { @class = "text-danger" })
+                        @if (TempData["SameMessage"] != null)
+                        {
+                            <span class="text-danger">
+                                @TempData["SameMessage"]
+                            </span>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6">     
+                    <div class="form-group">
+                        <label style='font-weight: bold;' for="addNama">Nama Mahasiswa<b style="color: red">*</b></label>
+                        @Html.EditorFor(model => model.mhs_nama, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.mhs_nama, "", new { @class = "text-danger" })
+                        @if (TempData["SameMessage"] != null)
+                        {
+                            <span class="text-danger">
+                                @TempData["SameMessage"]
+                            </span>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label style='font-weight: bold;' for="addProdi">Program Studi<b style="color: red">*</b></label>
+                        @Html.EditorFor(model => model.pro_singkatan, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                        @Html.ValidationMessageFor(model => model.pro_singkatan, "", new { @class = "text-danger" })
+                        @if (TempData["SameMessage"] != null)
+                        {
+                            <span class="text-danger">
+                                @TempData["SameMessage"]
+                            </span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*LOGBOOK*@
+  @*  <div class="card">
+        <div class="card-header">
+            <label><b>Logbook Mahasiswa</b></label>
+        </div>
+        <div class="card-block">
+            <table id="datatable" class="table table-hover table-bordered table-condensed table-striped grid" style="font-size:small;">
+            <thead>
+                <tr style="text-align:center">
+                    <th style="width:8%;">
+                        @Html.DisplayName("No")
+                    </th>
+                    <th style="text-align: center;">
+                        @Html.DisplayName("Tanggal Pengajuan")
+                    </th>
+                    <th style="text-align: center;">
+                        @Html.DisplayName("Status")
+                    </th>
+                        <th style="text-align: center;">
+                            @Html.DisplayName("Aksi")
+                        </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.create_date)
+                        </td>
+                        <td>
+                                @Html.DisplayFor(modelItem => item.log_status)
+                        </td>
+                        <td style="text-align:right">
+                            <a rel="tooltip" title="Edit" href="@Url.Action("DetailNilai", new { id = item.mhs_id })">
+                                    <i class="fa fa-list" aria-hidden="true"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </div>
+    </div>
+*@
+    @*PENILAIAN*@
+ @*   <div class="card">
+        <div class="card-header">
+            <label><b>Penilaian Kinerja</b></label>
+        </div>
+        <div class="card-block">
+            <table id="datatable" class="table table-hover table-bordered table-condensed table-striped grid" style="font-size:small;">
+                <thead>
+                    <tr style="text-align:center">
+                        <th style="width:8%;">
+                            @Html.DisplayName("No")
+                        </th>
+                        <th style="text-align: center;">
+                            @Html.DisplayName("Periode")
+                        </th>
+                        <th style="text-align: center;">
+                            @Html.DisplayName("Rata-rata")
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.pnl_periode)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.rata_nilai)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+        </div>
+    </div>*@
+
+    @*PENILAIAN*@
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="@Url.Action("Index")" class="btn btn-secondary">Batal</a>&nbsp;
+            <input type="submit" value="Simpan" class="btn btn-primary" />
+        </div>
+    </div>
+}
+

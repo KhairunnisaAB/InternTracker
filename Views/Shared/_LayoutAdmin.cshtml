@@ -1,0 +1,391 @@
+﻿@{
+    // Mendapatkan nilai datetime dari ViewBag
+    string currentDateTime = ViewBag.CurrentDateTime;
+}
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="description" content="Website Sistem Informasi Akademik Politeknik Astra. Silahkan gunakan NIM dan password Anda untuk login.">
+    <meta name="keywords" content="SIA,Sistem,Politeknik Astra,PMA,Akademik,SSO,Polman,Polman Astra,Politeknik Manufaktur,Politeknik Manufaktur Astra,Pendidikan Astra,Astra Politeknik,Polytechnic Astra,Astra Polytechnic,Astratek,Astratech,Kampus Astra,Kampus Terbaik,Politeknik Terbaik,Politeknik Vokasi,Vokasi,Vokasi Terbaik">
+    <meta name="author" content="Politeknik Astra">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="~/Content/User/logo_polman.png">
+    <link href="~/Content/Plugins/bootstrap-4.0.0-alpha.6-dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/Content/jquery.fancybox.css" rel="stylesheet" />
+    <link href="~/Content/Content/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="~/Content/Styles/Style.css" rel="stylesheet" />
+    <script src="~/Content/Scripts/tether/tether.min.js"></script>
+    <script src="~/Content/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Content/Scripts/jquery-ui-1.12.1.min.js"></script>
+    <script src="~/Content/Plugins/bootstrap-4.0.0-alpha.6-dist/js/bootstrap.min.js"></script>
+    <script src="~/Content/Plugins/Highcharts-5.0.14/code/highcharts.js"></script>
+    <script src="~/Content/Plugins/Highcharts-5.0.14/code/highcharts-more.js"></script>
+    <script src="~/Content/Plugins/Highcharts-5.0.14/code/modules/solid-gauge.js"></script>
+    <script src="~/Content/Plugins/Highcharts-5.0.14/code/modules/exporting.js"></script>
+    <script src="~/Content/Scripts/jquery.fancybox.pack.js"></script>
+    <script src="~/Content/Scripts/bootstrap-select.min.js"></script>
+    <script src="~/Content/Scripts/LetterAvatar.js"></script>
+
+
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+        $(function () {
+            $('[rel="tooltip"]').tooltip()
+        })
+
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+
+        function redirectNotifikasi() {
+            window.location.href = 'Page_Notifikasi.aspx';
+        }
+
+        function sentValidation(input) {
+            $(input).addClass('disabled');
+            $(input).text('Mohon tunggu..');
+        }
+
+        function pageLoad(sender, args) {
+            $('.selectpicker').selectpicker();
+            katweKibsAvatar.init({
+                dataChars: 2
+            });
+        }
+
+  
+
+        function refreshChart() {
+            try { $('#chartNilai').highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            try { $('#chartKehadiran').highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            try { $('#chartJamMinus').highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            try { $('#chartPelanggaran').highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            try { $('#container-ketercapaianpertemuan').highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            try { $('#container-ketercapaianmateri').highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            try { $('#container-ketercapaianwadir').highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            try { $('#container-kehadiranmahasiswatingkat1').highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            try { $('#container-kehadiranmahasiswatingkat2').highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            try { $('#container-kehadiranmahasiswatingkat3').highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            try { $('#container-kehadiranmahasiswawadir').highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            for (i = 1; i <= 10; i++) {
+                try { $('#container-kehadiranMataKuliah' + i).highcharts().setSize(undefined, undefined, false); } catch (err) { }
+                try { $('#container-ketercapaianMataKuliah' + i).highcharts().setSize(undefined, undefined, false); } catch (err) { }
+            }
+        }
+    </script>
+    <script src="~/Content/Scripts/jquery.floatThead.js"></script>
+    <style>
+        .mce-branding-powered-by {
+            display: none;
+        }
+
+        table {
+            border-top: none;
+            border-bottom: none;
+            background-color: #FFF;
+        }
+
+        .table-striped tbody tr:nth-of-type(2n+1) {
+            background-color: #FFF;
+        }
+
+        .table-striped tbody tr:nth-of-type(2n), thead {
+            background-color: #ECECEC;
+        }
+
+        .table-striped tbody tr.pagination-ys {
+            background-color: #FFF;
+        }
+
+        .highcharts-credits {
+            display: none;
+            height: 0px;
+        }
+
+        .loaderPMB {
+            position: absolute;
+            left: 50%;
+            top: 25%;
+            z-index: 1;
+            border: 10px solid #f3f3f3; /* Light grey */
+            border-top: 10px solid #3498db; /* Blue */
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            grid-gap: 10px;
+            padding: 10px;
+        }
+
+            .gallery img {
+                text-align: center;
+                width: auto;
+                height: 190px;
+                object-fit: cover;
+                border-radius: 5px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            }
+
+            .gallery .caption {
+                margin-top: 5px;
+                font-size: 14px;
+                color: #666;
+                text-align: center;
+            }
+
+        .photo-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .photo-item {
+            position: relative;
+            margin: 10px;
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+        }
+
+            .photo-item img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        .delete-button {
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            background-color: red;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: none;
+        }
+
+        .gallery-item:hover .delete-button {
+            display: block;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        .notification {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            font-size: 18px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+            .notification.show {
+                opacity: 1;
+            }
+    </style>
+    <script src="~/Scripts/tinymce/tinymce.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body class="scrollstyle2">
+    <div>
+        <div class="polman-nav-static-top">
+            <div class="float-left polman-adjust4">
+                <div class="fa fa-bars fa-2x polman-adjust2" style="margin-right: 15px; cursor: pointer;" aria-hidden="true" onclick="changestate();"></div>
+                <a href="@Url.Action("Dashboard","Login")">
+                    <img src="~/Content/Images/IMG_Logo.png" style="height: 40px; margin-top: -10px;" />
+                </a>
+            </div>
+            <div class="polman-menu">
+                <nav class="nav justify-content-end" style="padding-top: 5px;">
+                    <b id="username1" style="position: absolute;">Nisa</b>
+                    <span id="lastlogin" style="font-size: 11px; margin-top: -2px; width: 500px; text-align: right;"><br><br>Login terakhir: Jumat</span>
+                </nav>
+            </div>
+            <div class="polman-menu-bar">
+                <div class="float-right">
+                    <div class="fa fa-bars fa-2x" style="margin-top: 9px; cursor: pointer;" aria-hidden="true" data-toggle="collapse" data-target="#menu" aria-expanded="false" aria-controls="menu"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="polman-nav-static-right collapse scrollstyle2 polman-adjust5">
+            <div id="accordion" role="tablist" aria-multiselectable="true">
+                <div class="list-group">
+                    <a class="list-group-item list-group-item-action polman-username" style="border-radius: 0px; border: none; background-color: #EEE;">Hai,&nbsp;<b>Intern Tracker</b></a>
+                    <a href='@Url.Action("Index", "Logout")' class="list-group-item list-group-item-action" style="border-radius: 0px; border: none; padding-left: 23px;"><i class='fa fa-sign-out fa-lg fa-pull-left'></i>Logout</a>
+                    
+                    <a class='list-group-item list-group-item-action' asp-controller="Dashboard" asp-action="Index" style='border-radius: 0px; border: none; padding-left: 22px; display: inherit;'><i class='fa fa-home fa-lg fa-pull-left'></i>Dashboard </a>
+                    <a class='list-group-item list-group-item-action' asp-controller="Mahasiswa" asp-action="Index" style='border-radius: 0px; border: none; padding-left: 22px; display: inherit;'><i class='fa fa-home fa-lg fa-pull-left'></i>Mahasiswa </a>
+                    <a class='list-group-item list-group-item-action' asp-controller="Laporan" asp-action="Index" style='border-radius: 0px; border: none; padding-left: 22px; display: inherit;'><i class='fa fa-home fa-lg fa-pull-left'></i>Laporan Penilaian</a>
+                    <a class='list-group-item list-group-item-action' asp-controller="Industri" asp-action="Index" style='border-radius: 0px; border: none; padding-left: 22px; display: inherit;'><i class='fa fa-home fa-lg fa-pull-left'></i>Industri </a>
+                    <a class='list-group-item list-group-item-action' asp-controller="Pembimbing" asp-action="Index" style='border-radius: 0px; border: none; padding-left: 22px; display: inherit;'><i class='fa fa-home fa-lg fa-pull-left'></i>Pembimbing </a>
+                </div>
+            </div>
+        </div>
+        <div id="allcontent" class="polman-adjust5">
+            <ol class="breadcrumb polman-breadcrumb">
+                <li class="breadcrumb-item"><a href='http://localhost/sso' data-toggle="tooltip" data-placement="bottom" title="Menuju Halaman SSO">Sistem Informasi VCT</a></li>
+                <li class="breadcrumb-item">@ViewBag.Title</li>
+            </ol>
+            <hr />
+
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="~/Content/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="~/Content/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/assets/vendor/chart.js/chart.min.js"></script>
+    <script src="~/Content/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="~/Content/assets/vendor/quill/quill.min.js"></script>
+    <script src="~/Content/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="~/Content/assets/vendor/php-email-form/validate.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <!-- Template Main JS File -->
+    <script src="~/Content/assets/js/main.js"></script>
+    <script>
+        function cekExt(input) {
+            var file = input.files[0];
+            var valid = true;
+
+            if (file.size / 1024 > 5120) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Opps!',
+                    text: 'Berkas file terlalu besar! Ukuran maksimal berkas yang bisa dikirim adalah 5 MB'
+                });
+                valid = false;
+            }
+
+            var extension = file.name.split('.').pop().toLowerCase();
+            var allowedExtensions = ["jpg", "png", "jpeg"];
+
+            if (!allowedExtensions.includes(extension)) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Opps!',
+                    text: 'Format berkas yang dibolehkan adalah .jpg, .png, atau .jpeg'
+                });
+                valid = false;
+            }
+
+            if (valid) {
+                var img = new Image();
+                img.onload = function () {
+                    var width = img.width;
+                    var height = img.height;
+                    var aspectRatio = width / height;
+                    if (Math.abs(aspectRatio - (3 / 2)) > 0.01 && Math.abs(aspectRatio - (4 / 3)) > 0.01) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Opps!',
+                            text: 'Ukuran gambar harus memiliki rasio 3:2 hingga 4:3'
+                        });
+                        input.value = "";
+                    }
+
+                };
+                img.src = URL.createObjectURL(file);
+            } else {
+                input.value = "";
+            }
+        }
+
+
+
+        $(document).ready(function () {
+            var id = 123;
+            $('.readmore').each(function () {
+                var limit = 100;
+                var text = $(this).text();
+                if (text.length > limit) {
+                    var sub = text.substring(0, limit);
+                    var next = text.substring(limit);
+                    $(this).html(
+                        sub +
+                        "<span style='display:none;' id='readmore-" + id + "'>" + next + "</span>" +
+                        "<br /><a onclick=\"$('#readmore-" + id + "').toggle(300);$(this).hide(300);\" style='color: blue; font-weight: bold; cursor: pointer;'>Selengkapnya</a>"
+                    );
+                }
+                id++;
+            });
+
+            $('.centang').each(function () {
+                if ($(this).text() == 'Ya') {
+                    $(this).html('<i class="fa fa-check" aria-hidden="true"></i>');
+                }
+                else if ($(this).text() == 'Tidak') {
+                    $(this).html('<i class="fa fa-times" aria-hidden="true"></i>');
+                }
+            });
+        });
+
+        function refreshThead() {
+            $('.table').floatThead('reflow');
+        }
+
+        refreshChart();
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.close').click(function () {
+                refreshThead();
+            });
+
+            var x, y, top, left, down;
+
+            $(".scrollstyle").on({
+                mousedown: function (e) {
+                    if ($(this).hasClass('ignore-drag')) return;
+                    e.preventDefault();
+                    down = true;
+                    x = e.pageX;
+                    y = e.pageY;
+                    top = $(this).scrollTop();
+                    left = $(this).scrollLeft();
+                },
+                mousemove: function (e) {
+                    if ($(this).hasClass('ignore-drag')) return;
+                    if (down) {
+                        var newX = e.pageX;
+                        var newY = e.pageY;
+
+                        $(".scrollstyle").scrollTop(top - newY + y);
+                        $(".scrollstyle").scrollLeft(left - newX + x);
+                    }
+                },
+                mouseup: function (e) {
+                    if ($(this).hasClass('ignore-drag')) return;
+                    down = false;
+                }
+            });
+        });
+
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</body>
+</html>

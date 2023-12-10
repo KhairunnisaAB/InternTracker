@@ -1,0 +1,155 @@
+﻿@model IEnumerable<Projek_SIM.Models.Mahasiswa>
+
+@{
+    ViewBag.Title = "Data Mahasiswa";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int no = 0;
+}
+
+<a href="@Url.Action("Create")" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Tambah Baru</a>
+<br />
+<br />
+@using (Html.BeginForm("Index", "Mahasiswa", new { page = ViewBag.PageNumber }, FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="input-group">
+                <input type="text" class="form-control" id="cari" name="cari" value="@ViewBag.cari" placeholder="Pencarian" clientidmode="static">
+                <span class="input-group-btn">
+                    <input type="submit" class="btn btn-secondary" value="Cari" />
+                </span>
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+
+<div class="scrollstyle" style="overflow-x: auto;">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Sukses!</strong> @TempData["SuccessMessage"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (TempData["WarningMessage"] != null)
+    {
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    @TempData["WarningMessage"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <table id="datatable" class="table table-hover table-bordered table-condensed table-striped grid" style="font-size:small;">
+        <thead>
+            <tr style="text-align:center">
+                <th style="width:8%;">
+                    @Html.DisplayName("No")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("NIM")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("Nama Mahasiswa")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("Angkatan")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("Jenis Kelamin")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("Prodi")
+                </th>
+                <th>
+                    @Html.DisplayName("Aksi")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int startNumber = (ViewBag.PageNumber - 1) * ViewBag.PageSize + 1;
+            }
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="text-align: center;">
+                        @startNumber
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.mhs_id)
+                    </td>
+                    <td style ="text-align: left;">
+                        @Html.DisplayFor(modelItem => item.mhs_nama)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.mhs_angkatan)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.mhs_jenis_kelamin)
+                    </td>
+                    <td style="text-align: center;">
+                        @Html.DisplayFor(modelItem => item.pro_singkatan)
+                    </td>
+                    <td align="center" style="white-space:nowrap;">
+                        <a rel="tooltip" title="Detail" href="@Url.Action("Detail", new { NIM = item.mhs_id })">
+                            <i class="S" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                {
+                    startNumber++;
+                }
+            }
+        </tbody>
+        @if (ViewBag.TotalPages > 1)
+        {
+            <tr class="pagination-ys">
+                <td colspan="8">
+                    <table>
+                        <tbody>
+                            <tr>
+                                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                                {
+                                    if (i == ViewBag.PageNumber)
+                                    {
+                                        <td><span>@i</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @if (string.IsNullOrEmpty(ViewBag.cari))
+                                            {
+                                                <a href="@Url.Action("Index", new { page = i })">@i</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("Index", new { page = i, cari = ViewBag.cari })">@i</a>
+                                            }
+                                        </td>
+                                    }
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

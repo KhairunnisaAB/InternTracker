@@ -1,0 +1,364 @@
+﻿body {
+    font-family: Barlow;
+}
+
+b {
+    font-weight: bold;
+}
+
+strong {
+    font-weight: bold;
+}
+
+select {
+    font-family: Barlow;
+}
+
+.highcharts-container * {
+    font-family: Barlow;
+}
+
+.navbar {
+    font-weight: 400;
+    padding-left: 30px;
+    padding-right: 30px;
+    z-index: 100;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    background-color: white;
+}
+
+.footer {
+    background-color: #0059AB;
+    padding: 15px;
+}
+
+.socialmedia {
+    text-align: center;
+    color: white;
+    font-size: 15px;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: white;
+}
+
+.contentisi {
+    padding: 7px 30px 30px 30px;
+}
+
+    .contentisi p {
+        margin-bottom: 15px !important
+    }
+
+.edgeheader {
+    padding: 0px 0px 0px 15px;
+    font-size: 20px;
+    background-color: #0059AB;
+}
+
+.hovercolor {
+    width: 100%;
+    white-space: nowrap;
+}
+
+    .hovercolor:hover {
+        background-color: #0059AB !important;
+        border-radius: 2px;
+        color: white !important;
+        width: 100%;
+    }
+
+.scrollstyle {
+    overflow-x: auto;
+}
+
+    .scrollstyle::-webkit-scrollbar-track {
+        background-color: #FFFFFF;
+    }
+
+    .scrollstyle::-webkit-scrollbar {
+        border-radius: 10px;
+        width: 7px;
+        height: 7px;
+        background-color: #000000;
+    }
+
+    .scrollstyle::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #DDD;
+    }
+
+.scrollstyleHidden::-webkit-scrollbar-track {
+    background-color: #FFFFFF;
+}
+
+.scrollstyleHidden::-webkit-scrollbar {
+    border-radius: 10px;
+    width: 7px;
+    height: 7px;
+    background-color: #000000;
+    display: none;
+}
+
+.scrollstyleHidden::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #DDD;
+}
+
+.header-ys {
+    text-align: center;
+    background-color: #4285f4 !important;
+    color: white;
+}
+
+.header-ys-user {
+    text-align: center;
+    background-color: #0059AB !important;
+    color: white;
+}
+
+.row-ys td {
+    padding: 5px !important;
+}
+
+.pagination-ys {
+    padding-left: 0;
+    margin: 20px 0;
+    border-radius: 4px;
+}
+
+    .pagination-ys tr {
+        background-color: transparent !important;
+    }
+
+    .pagination-ys table > tbody > tr > td {
+        display: inline;
+        border: none;
+    }
+
+        .pagination-ys table > tbody > tr > td > a, .pagination-ys table > tbody > tr > td > span {
+            position: relative;
+            float: left;
+            padding: 8px 12px;
+            line-height: 1.42857143;
+            text-decoration: none;
+            color: #333;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin-left: -1px;
+        }
+
+        .pagination-ys table > tbody > tr > td > span {
+            position: relative;
+            float: left;
+            padding: 8px 12px;
+            line-height: 1.42857143;
+            text-decoration: none;
+            margin-left: -1px;
+            z-index: 2;
+            color: white;
+            background-color: #4285f4;
+            border-color: #ddd;
+            cursor: default;
+        }
+
+        .pagination-ys table > tbody > tr > td:first-child > a, .pagination-ys table > tbody > tr > td:first-child > span {
+            margin-left: 0;
+            border-bottom-left-radius: 4px;
+            border-top-left-radius: 4px;
+        }
+
+        .pagination-ys table > tbody > tr > td:last-child > a, .pagination-ys table > tbody > tr > td:last-child > span {
+            border-bottom-right-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .pagination-ys table > tbody > tr > td > a:focus, .pagination-ys table > tbody > tr > td > a:hover, .pagination-ys table > tbody > tr > td > span:focus, .pagination-ys table > tbody > tr > td > span:hover {
+            color: #333;
+            background-color: #eee;
+            border-color: #ddd;
+        }
+
+.panelheader {
+    padding-top: 10px;
+    height: 80px;
+    border-bottom: solid #eee 2px;
+}
+
+.panelmenu {
+    max-width: initial;
+    flex: initial;
+    height: 100%;
+    position: fixed;
+    z-index: 2;
+    padding: 0px 0px 80px 0px;
+    border-right: solid 2px #eee;
+    display: initial;
+    width: 100%;
+    visibility: hidden;
+}
+
+.panelcontent {
+    position: fixed;
+    z-index: 1;
+    height: 100%;
+    padding: 13px 10px 90px 23px;
+}
+
+.panelfooter {
+    position: fixed;
+    height: 50px;
+    width: 100%;
+    bottom: 0;
+    margin: 0;
+    background-color: white;
+    padding: 14px 0px 0px 30px;
+}
+
+.panelauthentication {
+    display: none;
+}
+
+.panelauthenticationmobile {
+    display: initial;
+}
+
+.iconmenu {
+    margin: 15px 15px 0px 10px;
+}
+
+.iconclose {
+    margin: 15px 21px 0px 10px;
+}
+
+.hovermenu:hover {
+    background-color: #F3F3F3;
+}
+
+.validator {
+    font-size: 14px;
+    color: red;
+    text-align: left;
+    position: absolute;
+    top: 0px;
+    right: 15px;
+}
+
+.form-cari {
+    border: solid 1px #CCC !important;
+    border-radius: 10em !important;
+    height: 25px !important;
+    margin-top: 6px !important;
+}
+
+.hidden {
+    display: none;
+}
+
+.checkBoxPendaftar #checkPendaftar[type="checkbox"] {
+    position: initial;
+    pointer-events: initial;
+    opacity: 1;
+}
+
+.avatarcustom {
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    background-color: #0059AB;
+    border-radius: 100px;
+    text-align: center;
+    color: white;
+    font-weight: bold;
+    font-size: 5.9em;
+}
+
+.avataremail {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.4em;
+    margin-top: 20px;
+}
+
+.desktoponly {
+    display: none;
+}
+
+.mobileonly {
+    display: initial;
+}
+
+@media screen and (min-width: 1000px) {
+    .panelmenu {
+        display: initial;
+        width: 250px;
+        visibility: visible;
+    }
+
+    .panelcontentweb {
+        padding: 15px 10px 90px 270px;
+    }
+
+    .panelauthentication {
+        line-height: 1.3em;
+        margin: 9px 15px 0px 0px;
+        text-align: right;
+        display: initial;
+        float: right;
+    }
+
+    .panelauthenticationmobile {
+        display: none;
+    }
+
+    .iconmenu {
+        margin: 15px 15px 0px -43px;
+    }
+
+    .iconclose {
+        margin: 15px 21px 0px -43px;
+    }
+
+    .desktoponly {
+        display: initial;
+    }
+
+    .mobileonly {
+        display: none;
+    }
+}
+
+@media print {
+    html, body {
+        height: 100%;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden;
+    }
+
+    body * {
+        visibility: hidden;
+    }
+
+    #section-to-print, #section-to-print * {
+        visibility: visible;
+    }
+
+    #section-to-print {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+    .desktoponly {
+        display: initial;
+    }
+}
+
+@page {
+    size: A5;
+    size: landscape;
+    margin: 20mm;
+}

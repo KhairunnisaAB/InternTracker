@@ -1,0 +1,42 @@
+﻿@model IEnumerable<Projek_SIM.Models.Prodi>
+@{
+}
+
+<div class="scrollstyle" style="overflow-x: auto;">
+
+    <table id="datatable" class="table table-hover table-bordered table-condensed table-striped grid" style="font-size:small;">
+        <thead>
+            <tr style="text-align:center">
+                <th style="width:8%;">
+                    @Html.DisplayName("No")
+                </th>
+                <th>
+                    @Html.DisplayName("Nama UPT")
+                </th>
+                <th>
+                    @Html.DisplayName("Aksi")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int startNumber = 0;
+            }
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @startNumber
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pro_nama)
+                    </td>
+                </tr>
+                {
+                    startNumber++;
+                }
+            }
+        </tbody>
+    </table>
+</div>

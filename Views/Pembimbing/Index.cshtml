@@ -1,0 +1,236 @@
+﻿@model IEnumerable<Projek_SIM.Models.Pembimbing>
+
+@{
+    ViewBag.Title = "Data Pembimbing";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    int no = 0;
+}
+
+<a href="@Url.Action("Create")" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;Tambah Baru</a>
+<br />
+<br />
+@using (Html.BeginForm("Index", "Pembimbing", new { page = ViewBag.PageNumber }, FormMethod.Get))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="input-group">
+                <input type="text" class="form-control" id="cari" name="cari" value="@ViewBag.cari" placeholder="Pencarian" clientidmode="static">
+                <span class="input-group-btn">
+                    <input type="submit" class="btn btn-secondary" value="Cari" />
+                </span>
+            </div>
+        </div>
+    </div>
+}
+
+<br />
+
+<div class="scrollstyle" style="overflow-x: auto;">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Sukses!</strong> @TempData["SuccessMessage"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (TempData["WarningMessage"] != null)
+    {
+        <div class="row">
+            <div class="form-group col-md-12">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    @TempData["WarningMessage"]
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <table id="datatable" class="table table-hover table-bordered table-condensed table-striped grid" style="font-size:small;">
+        <thead>
+            <tr style="text-align:center">
+                <th style="width:8%;">
+                    @Html.DisplayName("No")
+                </th>
+                <th style="text-align: center;">
+                    @Html.DisplayName("ID")
+                </th>
+                <th style="text-align: left;">
+                    @Html.DisplayName("Nama Pembimbing")
+                </th>
+                <th style="text-align: left;">
+                    @Html.DisplayName("Nama Industri")
+                </th>
+                <th style="text-align: left;">
+                    @Html.DisplayName("Jabatan")
+                </th>
+                <th style="text-align: left;">
+                    @Html.DisplayName("Email")
+                </th>
+                <th>
+                    @Html.DisplayName("Aksi")
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int startNumber = (ViewBag.PageNumber - 1) * ViewBag.PageSize + 1;
+            }
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @startNumber
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pin_id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pin_nama)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ipr_nama)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pin_jabatan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pin_email)
+                    </td>
+                    <td style="text-align:right">
+                        <a rel="tooltip" title="Edit" href="@Url.Action("Edit", new { id = item.pin_id })">
+                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                        </a>
+                        <a rel="tooltip" title="Hapus" class="delete-link" data-id="@item.pin_id">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                </tr>
+                {
+                    startNumber++;
+                }
+            }
+        </tbody>
+        @if (ViewBag.TotalPages > 1)
+        {
+            <tr class="pagination-ys">
+                <td colspan="8">
+                    <table>
+                        <tbody>
+                            <tr>
+                                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                                {
+                                    if (i == ViewBag.PageNumber)
+                                    {
+                                        <td><span>@i</span></td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            @if (string.IsNullOrEmpty(ViewBag.cari))
+                                            {
+                                                <a href="@Url.Action("Index", new { page = i })">@i</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("Index", new { page = i, cari = ViewBag.cari })">@i</a>
+                                            }
+                                        </td>
+                                    }
+                                }
+                            </tr>
+
+                            <!-- jQuery -->
+                            <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+                            <!-- SweetAlert -->
+                            <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<script>
+    $(function (){
+        $('.delete-link').click(function (e) {
+            e.preventDefault();
+            var deleteLink = $(this);
+            var id = deleteLink.data('id');
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success mx-3',
+                    cancelButton: 'btn btn-danger mx-3'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Yakin?',
+                text: "Data tidak dapat dikembalikan setelah dihapus",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Tidak!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    
+                    $.ajax({
+                        url: "@Url.Action("Hapus", "Pembimbing")",
+                        type: "POST",
+                        data: { id: id },
+                        success: function (data) {
+                            if(data.success) {
+                                swalWithBootstrapButtons.fire(
+                                    'Berhasil!',
+                                    'Data berhasil dihapus',
+                                    'success'
+                                ).then((value) => {
+                                    window.location = "@Url.Action("Index", "Pembimbing" , new { id = @TempData["Data"] })";
+                                });
+                            } else {
+                                swalWithBootstrapButtons.fire(
+                                    'Gagal',
+                                    'Data batal dihapus',
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function () {
+                            swalWithBootstrapButtons.fire(
+                                'Gagal',
+                                'Terjadi kesalahan saat menghapus data',
+                                'error'
+                            )
+                        }
+                    });
+                    
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Gagal',
+                        'Data batal dihapus',
+                        'error'
+                    )
+                }
+            });
+        });
+    });
+</script>
+

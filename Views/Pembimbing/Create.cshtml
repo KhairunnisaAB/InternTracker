@@ -1,0 +1,102 @@
+﻿@model Projek_SIM.Models.Pembimbing
+
+@{
+    ViewBag.Title = "Tambah Pembimbing Industri";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <label><b>Tambah Pembimbing Industri</b></label>
+        </div>
+        <div class="card-block">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label style='font-weight: bold;' for="addNIM"> NIM<b style="color: red">*</b></label>
+                        @Html.EditorFor(model => model.pin_id, new { htmlAttributes = new { @class = "form-control",  } })
+                        @Html.ValidationMessageFor(model => model.pin_id, "", new { @class = "text-danger" })
+                        @if (TempData["SameMessage"] != null)
+                        {
+                            <span class="text-danger">
+                                @TempData["SameMessage"]
+                            </span>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label style='font-weight: bold;' for="addNama">Pilih Industri </label>
+                        @Html.DropDownList("ipr_id", ViewBag.ipr_id as SelectList, "-- Pilih Industri --", new { @class = "form-control" })
+                        
+                    </div>
+                </div>
+                <div class="col-lg-6">     
+                    <div class="form-group">
+                        <label style='font-weight: bold;' for="addNama">Nama Pembimbing<b style="color: red">*</b></label>
+                        @Html.EditorFor(model => model.pin_nama, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.pin_nama, "", new { @class = "text-danger" })
+                        @if (TempData["SameMessage"] != null)
+                        {
+                            <span class="text-danger">
+                                @TempData["SameMessage"]
+                            </span>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label style='font-weight: bold;' for="addJabatan">Jabatan<b style="color: red">*</b></label>
+                        @Html.EditorFor(model => model.pin_jabatan, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.pin_jabatan, "", new { @class = "text-danger" })
+                        @if (TempData["SameMessage"] != null)
+                        {
+                            <span class="text-danger">
+                                @TempData["SameMessage"]
+                            </span>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label style='font-weight: bold;' typeof="Email" for="addEmail">Email<b style="color: red">*</b></label>
+                        @Html.EditorFor(model => model.pin_email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.pin_email, "", new { @class = "text-danger" })
+                        @if (TempData["SameMessage"] != null)
+                        {
+                            <span class="text-danger">
+                                @TempData["SameMessage"]
+                            </span>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label style='font-weight: bold;' for="addEmail">Password<b style="color: red">*</b></label>
+                        @Html.EditorFor(model => model.pin_password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.pin_password, "", new { @class = "text-danger" })
+                        @if (TempData["SameMessage"] != null)
+                        {
+                            <span class="text-danger">
+                                @TempData["SameMessage"]
+                            </span>
+                        }
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <br />
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <a href="@Url.Action("Index")" class="btn btn-secondary">Batal</a>&nbsp;
+            <input type="submit" value="Simpan" class="btn btn-primary" />
+        </div>
+    </div>
+}
